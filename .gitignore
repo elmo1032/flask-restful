@@ -1,3 +1,7 @@
+# This is a list of file and directory patterns that should be ignored by version control systems (VCS)
+# such as Git or Mercurial. These patterns are typically used to exclude files that are generated
+# at runtime, or by build tools, as well as user-specific files and directories.
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -15,14 +19,8 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
 .installed.cfg
+*.egg-info/
 *.egg
 MANIFEST
 
@@ -96,10 +94,3 @@ venv.bak/
 .spyproject
 
 # Rope project settings
-.ropeproject
-
-# mkdocs documentation
-/site
-
-# mypy
-.mypy_cache/
