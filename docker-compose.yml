@@ -1,21 +1,40 @@
+# Specify the version of the Docker Compose file format
 version: '3.7'
+
+# Define the services (containers) that will be created when running `docker-compose up`
 services:
 
+  # The `app` service
   app:
+    # Build the image for this service using the Dockerfile located in the `./app` directory
     build: ./app
+    # Restart the container automatically if it exits
     restart: always
+    # Map port 5000 inside the container to port 5000 on the host machine
     ports:
       - 5000:5000
+    # Specify that this service depends on the `database` service, and Docker Compose will ensure that the `database` service is started first
     depends_on:
       - database
 
+  # The `database` service
   database:
-    image: postgres:latest # use latest official postgres version
+    # Use the latest official PostgreSQL image
+    image: postgres:latest
+    # Load environment variables from the `postgres.env` file
     env_file:
-      - postgres.env # configure postgres
+      - postgres.env
+    # Map port 5432 inside the container to port 5432 on the host machine
     ports:
       - 5432:5432
+    # Persist data even if the container is stopped or removed by using a named volume
     volumes:
-      - database-data:/var/lib/postgresql/data/ # persist data even if container shuts down
+      - database-data:/var/lib/postgresql/data/
+
+# Define any named volumes that will be used by the services
 volumes:
-  database-data: # named volumes can be managed easier using docker-compose
+  # The `database-data` volume
+  database-data:
+
+# Named volumes can be managed more easily using Docker Compose
+# Compared to using anonymous volumes or host volumes
