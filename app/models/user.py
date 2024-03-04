@@ -2,5 +2,6 @@
 # -*- coding: utf-8 -*-
 # standard python imports
 
-from app.db import db # Importing the database object from the app's db module
+from app.db import db # Importing the database object from the app's db module. This database object provides an interface to interact with the application's database.
+
 
