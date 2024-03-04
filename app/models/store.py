@@ -2,31 +2,30 @@
 # -*- coding: utf-8 -*-
 # standard python imports
 
-from app.db import db
+from app.db import db # Import the database object from the app's db module
 
+class StoreModel(db.Model): # Define a new class StoreModel that inherits from db.Model
+    __tablename__ = 'stores' # Set the name of the table in the database
 
-class StoreModel(db.Model):
-    __tablename__ = 'stores'
+    id = db.Column(db.Integer, primary_key=True) # Define a column for the id, which is the primary key
+    name = db.Column(db.String(80)) # Define a column for the store name, with a maximum length of 80 characters
 
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(80))
+    items = db.relationship('ItemModel', lazy='dynamic') # Define a relationship to the ItemModel class, with the 'items' as the relationship name
 
-    items = db.relationship('ItemModel', lazy='dynamic')
+    def __init__(self, name): # Define the constructor for the StoreModel class
+        self.name = name # Set the name attribute to the input value
 
-    def __init__(self, name):
-        self.name = name
-
-    def json(self):
+    def json(self): # Define a method to convert the StoreModel object to a JSON-serializable dictionary
         return {'name': self.name, 'items': [item.json() for item in self.items.all()]}
 
-    @classmethod
-    def find_by_name(cls, name):
-        return cls.query.filter_by(name=name).first()
+    @classmethod # Decorate the method as a class method
+    def find_by_name(cls, name): # Define a class method to find a StoreModel object by its name
+        return cls.query.filter_by(name=name).first() # Query the database for the first StoreModel object with the given name
 
-    def save_to_db(self):
-        db.session.add(self)
-        db.session.commit()
+    def save_to_db(self): # Define a method to save the StoreModel object to the database
+        db.session.add(self) # Add the object to the database session
+        db.session.commit() # Commit the changes to the database
 
-    def delete_from_db(self):
-        db.session.delete(self)
-        db.session.commit()
+    def delete_from_db(self): # Define a method to delete the StoreModel object from the database
+        db.session.delete(self) # Delete the object from the database session
+        db.session.commit() # Commit the changes to the database
