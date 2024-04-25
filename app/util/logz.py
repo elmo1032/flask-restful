@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import logging # Import the built-in logging module for logging messages throughout the application
-from rich.console import Console # Import the Console class from the Rich library for better console output
-from rich.logging import RichHandler # Import the RichHandler class from the Rich library for better log formatting
-from rich.traceback import install # Import the install function from the Rich library for better error reporting
+import logging
+from typing import Any
+from rich.console import Console
+from rich.logging import RichHandler
+from rich.traceback import install
 
-def create_logger():
+def create_logger() -> logging.Logger:
     """Create a logger for use in all cases.
 
     This function creates a logger instance that can be used to log messages
@@ -17,8 +18,10 @@ def create_logger():
         logging.Logger: A logger instance with the given log level.
     """
     # Create a logger instance
-    # The logger instance is used to log messages throughout the application
     logger = logging.getLogger()
+
+    # Remove the default handler of the logger
+    logger.removeHandler(logger.handlers[0])
 
     # Set the log level based on the 'LOGLEVEL' environment variable
     # If the 'LOGLEVEL' variable is not set, the default log level is 'WARNING'
@@ -34,6 +37,8 @@ def create_logger():
         }
         if log_level_str in log_levels:
             log_level = log_levels[log_level_str]
+        else:
+            raise ValueError(f"Invalid log level: {log_level_str}")
 
     # Set the log format
     # The log format specifies how log messages are displayed
