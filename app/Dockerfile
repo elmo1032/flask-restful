@@ -15,8 +15,8 @@ ENV PATH="/home/myuser/venv/bin:$PATH"
 
 # Install the required packages from the requirements.txt file
 COPY requirements.txt .
-RUN pip3 install --no-cache-dir wheel
-RUN pip3 install --no-cache-dir -r requirements.txt
+RUN pip3 install --no-cache-dir wheel  # Install wheel package for efficient package installation
+RUN pip3 install --no-cache-dir -r requirements.txt  # Install required packages
 
 # Use the LTS version of Ubuntu as the base image for the runner stage
 FROM ubuntu:20.04 AS runner-image
@@ -28,13 +28,13 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
 
 # Create a new user named myuser and set up the virtual environment
 RUN useradd --create-home myuser
-COPY --from=builder-image /home/myuser/venv /home/myuser/venv
+COPY --from=builder-image /home/myuser/venv /home/myuser/venv  # Copy the virtual environment from the builder stage
 
 # Set the user to myuser and switch to the working directory
 USER myuser
-RUN mkdir /home/myuser/code
-WORKDIR /home/myuser/code/app
-COPY . .
+RUN mkdir /home/myuser/code  # Create a code directory for the application
+WORKDIR /home/myuser/code/app  # Set the working directory for the application
+COPY . .  # Copy the current directory (containing the application code) to the working directory
 
 # Expose port 5000 for the application
-EXPOSE 500
+EXPOSE 5000
