@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import os
 import logging
 from typing import Any
 from rich.console import Console
@@ -21,13 +22,13 @@ def create_logger() -> logging.Logger:
     logger = logging.getLogger()
 
     # Remove the default handler of the logger
-    logger.removeHandler(logger.handlers[0])
+    logger.handlers.clear()
 
     # Set the log level based on the 'LOGLEVEL' environment variable
     # If the 'LOGLEVEL' variable is not set, the default log level is 'WARNING'
     log_level = logging.WARNING
-    if "LOGLEVEL" in environ:
-        log_level_str = environ["LOGLEVEL"].upper()
+    if "LOGLEVEL" in os.environ:
+        log_level_str = os.environ["LOGLEVEL"].upper()
         log_levels = {
             "DEBUG": logging.DEBUG,
             "INFO": logging.INFO,
@@ -48,7 +49,9 @@ def create_logger() -> logging.Logger:
 
     # Add a RichHandler to the logger
     # The RichHandler is used to format log messages using the Rich library
-    rich_handler = RichHandler(markup=True, rich_tracebacks=True)
+    install()
+    console = Console()
+    rich_handler = RichHandler(markup=True, rich_tracebacks=True, console=console)
     rich_handler.setFormatter(formatter)
     logger.addHandler(rich_handler)
 
