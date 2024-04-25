@@ -2,32 +2,31 @@
 # -*- coding: utf-8 -*-
 
 # standard python imports
-from app.db import db # Importing the database object from the app's db module. This database object provides an interface to interact with the application's database.
-
+import contextlib
 
 # Add any necessary imports here
 
 # Define any necessary functions or classes here
 
-# Connect to the database
+# Connect to the database using a context manager to automatically close the connection
+@contextlib.contextmanager
 def connect_db():
-    """Connects to the database and returns a connection object."""
+    """Connects to the database and returns a connection object. Automatically closes the connection when the block is exited."""
     connection = db.connect()
-    return connection
-
-
-# Close the database connection
-def close_db(connection):
-    """Closes the database connection."""
-    connection.close()
+    try:
+        yield connection
+    finally:
+        connection.close()
 
 
 # Example usage
 if __name__ == "__main__":
-    # Connect to the database
-    conn = connect_db()
+    # Connect to the database using the context manager
+    with connect_db() as conn:
+        # Perform database operations here
+        pass
 
+    # Alternatively, you can still connect to the database manually and close the connection manually
+    # conn = connect_db()
     # Perform database operations here
-
-    # Close the database connection
-    close_db(conn)
+    # close_db(conn)
