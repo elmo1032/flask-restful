@@ -1,14 +1,17 @@
 #!/usr/bin/env python3
-#
+# ------------------------------------------------------------------------------
 # A Python script for a Flask RESTful resource to manage stores in a database.
-#
+# 
 # Standard Python imports
-
+# ------------------------------------------------------------------------------
 from flask_restful import Resource  # Import the Resource class from Flask-RESTful
 from app.models.store import StoreModel  # Import the StoreModel class from the stores model
 from flask_jwt_extended import jwt_required  # Import the jwt_required decorator
 from app.util.logz import create_logger  # Import the create_logger function
 
+# ------------------------------------------------------------------------------
+# Class representing a Flask RESTful resource for managing stores.
+# ------------------------------------------------------------------------------
 class Store(Resource):
     """
     A class representing a Flask RESTful resource for managing stores.
@@ -18,8 +21,15 @@ class Store(Resource):
         """
         Initialize the Store resource.
         """
-        self.logger = create_logger()  # Create a logger instance
+        # Create a logger instance
+        self.logger = create_logger()
 
+    # --------------------------------------------------------------------------
+    # Handle GET requests to retrieve a store by name.
+    # 
+    # :param name: The name of the store to retrieve
+    # :return: A JSON object representing the store or an error message
+    # --------------------------------------------------------------------------
     def get(self, name):
         """
         Handle GET requests to retrieve a store by name.
@@ -32,6 +42,12 @@ class Store(Resource):
             return store.json()  # Return the store as a JSON object
         return {'message': 'Store not found'}, 404  # Return a 404 error if the store is not found
 
+    # --------------------------------------------------------------------------
+    # Handle POST requests to create a new store.
+    #
+    # :param name: The name of the new store
+    # :return: A JSON object representing the new store or an error message
+    # --------------------------------------------------------------------------
     @jwt_required()  # Require a JWT token for this endpoint
     def post(self, name):
         """
@@ -40,7 +56,8 @@ class Store(Resource):
         :param name: The name of the new store
         :return: A JSON object representing the new store or an error message
         """
-        if StoreModel.find_by_name(name):  # Check if a store with the same name already exists
+        # Check if a store with the same name already exists
+        if StoreModel.find_by_name(name):
             return {'message': "A store with name '{}' already exists.".format(name)}, 400
 
         store = StoreModel(name)  # Create a new store instance
