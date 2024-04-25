@@ -14,4 +14,4 @@ class StoreModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
     # Define a column for the store name, with a maximum length of 80 characters
-    name = db.Column(db.String(8
+    name = db.Column(db.String(80))
