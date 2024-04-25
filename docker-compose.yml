@@ -4,25 +4,40 @@ version: '3.8'
 
 services:
   app:
-    build:
-      context: ./app
-      dockerfile: Dockerfile
+    # Use a build context relative to the location of the docker-compose.yml file
+    build: ./app
+    # Use a specific Dockerfile if there are multiple Dockerfiles in the build context
+    dockerfile: Dockerfile
+    # Restart the container if it exits
     restart: always
+    # Map the host's port 5000 to the container's port 5000
     ports:
       - "5000:5000"
+    # Wait for the database to be ready before starting the app
     depends_on:
-      - database
+      database:
+        condition: service_healthy
+    # Set an environment variable for the app to connect to the database
     environment:
       - DATABASE_URL=postgres://username:password@database:5432/dbname
 
   database:
+    # Use the latest PostgreSQL image
     image: postgres:latest
+    # Load environment variables from a file
     env_file:
       - postgres.env
+    # Map the host's port 5432 to the container's port 5432
     ports:
       - "5432:5432"
+    # Persist data across container restarts
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    # Check the health of the container before marking it as healthy
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      retries: 5
 
 volumes:
   postgres_data:
