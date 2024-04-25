@@ -1,7 +1,7 @@
 #!/usr/bin/env python3  # specifies the interpreter to use for this script
 # -*- coding: utf-8 -*-  # specifies the encoding of the script
 
-import os
+import os  # importing the os module for accessing environment variables
 
 # Import the SQLAlchemy class from the flask_sqlalchemy library
 from flask_sqlalchemy import SQLAlchemy
@@ -22,9 +22,16 @@ db.init_app(app, database_uri)
 
 # Define a sample model for the database
 class User(db.Model):
+    # Define the id column as an integer type with a primary key constraint
     id = db.Column(db.Integer, primary_key=True)
+    
+    # Define the username column as a string type with a unique constraint and a maximum length of 80 characters
     username = db.Column(db.String(80), unique=True, nullable=False)
+    
+    # Define the email column as a string type with a unique constraint and a maximum length of 120 characters
     email = db.Column(db.String(120), unique=True, nullable=False)
 
+    # Define the __repr__ method to provide a human-readable representation of the User object
     def __repr__(self):
         return '<User %r>' % self.username
+
