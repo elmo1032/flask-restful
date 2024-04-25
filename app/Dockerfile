@@ -10,11 +10,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends build-essential
 
 # Create and activate a virtual environment using python3.9 and the final folder name to avoid path issues with packages
 WORKDIR /app
-RUN python3 -m venv venv
+RUN python3.9 -m venv venv
 ENV PATH="/app/venv/bin:$PATH"
 
 # Install the required packages from the requirements.txt file
-COPY requirements.txt .
+COPY --chown=myuser:myuser requirements.txt .
 RUN pip install --no-cache-dir wheel  # Install wheel package for efficient package installation
 RUN pip install --no-cache-dir -r requirements.txt  # Install required packages
 
@@ -30,7 +30,7 @@ USER myuser
 WORKDIR /app/code
 
 # Copy the current directory (containing the application code) to the working directory
-COPY . .
+COPY --chown=myuser:myuser . .
 
 # Expose port 5000 for the application
 EXPOSE 5000
