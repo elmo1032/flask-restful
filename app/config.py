@@ -1,22 +1,40 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-# standard python imports (no need to add anything here)
+import os
+from sqlalchemy.engine import create_engine
+from sqlalchemy.pool import NullPool
 
-# Define the configuration for the MSSQL database
-mssql = {'host': 'dbhost',  # the hostname of the MSSQL server
-         'user': 'dbuser',  # the username to connect to the MSSQL server
-         'passwd': 'dbPwd',  # the password for the above user
-         'db': 'db'}  # the name of the database to connect to
+def create_mssql_engine() -> create_engine:
+    """Create a SQLAlchemy engine for MSSQL database.
 
-# Define the configuration for the PostgreSQL database
-postgresql = {'host': '0.0.0.0',  # the hostname of the PostgreSQL server
-         'user': 'postgres',  # the username to connect to the PostgreSQL server
-         'passwd': 'magical_password',  # the password for the above user
-         'db': 'db'}  # the name of the database to connect to
+    Returns:
+        create_engine: A SQLAlchemy engine for MSSQL database.
+    """
+    mssql_host = os.environ["MSSQL_HOST"]
+    mssql_user = os.environ["MSSQL_USER"]
+    mssql_passwd = os.environ["MSSQL_PASSWD"]
+    mssql_db = os.environ["MSSQL_DB"]
 
-# Create the connection string for the MSSQL database using the pyodbc library
-mssqlConfig = "mssql+pyodbc://{}:{}@{}:1433/{}?driver=SQL+Server+Native+Client+10.0".format(mssql['user'], mssql['passwd'], mssql['host'], mssql['db'])
+    mssql_driver = "SQL+Server+Native+Client+10.0"
+    mssql_url = f"mssql+pyodbc://{mssql_user}:{mssql_passwd}@{mssql_host}:1433/{mssql_db}?driver={mssql_driver}"
 
-# Create the connection string for the PostgreSQL database using the psycopg2 library
-postgresqlConfig = "postgresql+psycopg2://{}:{}@{}/{}".format(postgresql['user'], postgresql['passwd'], postgresql['host'], postgresql['db'])
+    engine = create_engine(mssql_url, poolclass=NullPool)
+    return engine
 
+def create_postgresql_engine() -> create_engine:
+    """Create a SQLAlchemy engine for PostgreSQL database.
+
+    Returns:
+        create_engine: A SQLAlchemy engine for PostgreSQL database.
+    """
+    postgresql_host = os.environ["POSTGRESQL_HOST"]
+    postgresql_user = os.environ["POSTGRESQL_USER"]
+    postgresql_passwd = os.environ["POSTGRESQL_PASSWD"]
+    postgresql_db = os.environ["POSTGRESQL_DB"]
+
+    postgresql_url = f"postgresql+psycopg2://{postgresql_user}:{postgresql_passwd}@{postgresql_host}/{postgresql_db}"
+
+    engine = create_engine(postgresql_url, poolclass=NullPool)
+    return engine
+
+# Example usage
+mssql_engine = create_mssql_engine()
+postgresql_engine = create_postgresql_engine()
