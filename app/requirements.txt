@@ -1,11 +1,54 @@
-# Flask==2.3.2: A lightweight web framework for building APIs and web applications in Python.
-# Flask-RESTful==0.3.9: An extension for Flask that simplifies the creation of RESTful APIs.
-# Flask-SQLAlchemy==2.5.1: An extension for Flask that provides integration with SQLAlchemy, a popular ORM for Python.
-# Jinja2==3.0.1: A templating engine for Python that is used to generate HTML templates.
-# Flask-JWT-Extended==4.2.1: An extension for Flask that simplifies the creation and management of JSON Web Tokens (JWTs).
-# python-dateutil==2.8.1: A library that provides powerful extensions to the standard datetime module, including support for handling timezones.
-# pytz==2021.1: A library that provides timezone support for Python, including a large collection of timezones.
-# SQLAlchemy==1.4.19: A popular Object-Relational Mapping (ORM) for Python that provides a way to interact with databases using Python objects.
-# Werkzeug==2.2.3: A comprehensive WSGI web application library for Python that is used by Flask and other web frameworks.
-# psycopg2-binary: A PostgreSQL adapter for Python that provides a way to interact with PostgreSQL databases using Python.
-# rich: A library for adding rich text and syntax highlighting to the console.
+# Flask (2.1.1) is a lightweight web framework for building APIs and web applications in Python.
+# It provides a simple and flexible way to create web applications and APIs, and has a large and active community.
+# https://flask.palletsprojects.com/en/2.1.x/
+Flask==2.1.1
+
+# Flask-RESTful (0.3.9) is an extension for Flask that simplifies the creation of RESTful APIs.
+# It provides a simple and consistent interface for creating resources, handling requests, and returning responses.
+# https://flask-restful.readthedocs.io/en/latest/
+Flask-RESTful==0.3.9
+
+# Flask-SQLAlchemy (2.5.1) is an extension for Flask that provides integration with SQLAlchemy, a popular ORM for Python.
+# It simplifies the process of connecting to a database, defining models, and performing queries.
+# https://flask-sqlalchemy.palletsprojects.com/en/2.x/
+Flask-SQLAlchemy==2.5.1
+
+# Jinja2 (3.0.1) is a templating engine for Python that is used to generate HTML templates.
+# It provides a simple and flexible way to separate the presentation layer from the business logic, and has a large and active community.
+# https://jinja.palletsprojects.com/en/3.0.x/
+Jinja2==3.0.1
+
+# Flask-JWT-Extended (4.2.1) is an extension for Flask that simplifies the creation and management of JSON Web Tokens (JWTs).
+# It provides a simple and consistent interface for creating, verifying, and refreshing JWTs, and supports various authentication scenarios.
+# https://flask-jwt-extended.readthedocs.io/en/latest/
+Flask-JWT-Extended==4.2.1
+
+# python-dateutil (2.8.1) is a library that provides powerful extensions to the standard datetime module, including support for handling timezones.
+# It provides various classes and functions for parsing, formatting, and manipulating dates and times, and supports various timezones.
+# https://dateutil.readthedocs.io/en/stable/
+python-dateutil==2.8.1
+
+# pytz (2021.1) is a library that provides timezone support for Python, including a large collection of timezones.
+# It provides various classes and functions for handling timezones, and supports various timezone databases.
+# https://pytz.sourceforge.io/
+pytz==2021.1
+
+# SQLAlchemy (1.4.19) is a popular Object-Relational Mapping (ORM) for Python that provides a way to interact with databases using Python objects.
+# It supports various databases, including PostgreSQL, MySQL, SQLite, and Oracle, and provides a simple and flexible way to define models and perform queries.
+# https://www.sqlalchemy.org/
+SQLAlchemy==1.4.19
+
+# Werkzeug (2.2.3) is a comprehensive WSGI web application library for Python that is used by Flask and other web frameworks.
+# It provides various utilities for handling requests, responses, cookies, sessions, and other web-related tasks, and has a large and active community.
+# https://werkzeug.palletsprojects.com/en/2.2.x/
+Werkzeug==2.2.3
+
+# psycopg2-binary is a PostgreSQL adapter for Python that provides a way to interact with PostgreSQL databases using Python.
+# It supports various PostgreSQL features, including prepared statements, transactions, and server-side cursors, and has a large and active community.
+# https://www.psycopg.org/docs/
+psycopg2-binary
+
+# rich is a library for adding rich text and syntax highlighting to the console.
+# It provides various classes and functions for formatting text, tables, progress bars, and other console-related tasks, and has a large and active community.
+# https://rich.readthedocs.io/en/stable/
+rich
