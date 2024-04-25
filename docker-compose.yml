@@ -1,46 +1,28 @@
 # docker-compose.yml
 
-# Specify the version of the Docker Compose file format
-# The version should be set to '3.7' or higher to enable advanced features
-version: '3.7'
+version: '3.8'
 
-# Define the services (containers) that will be created when running `docker-compose up`
 services:
-
-  # The `app` service
   app:
-    # Build the image for this service using the Dockerfile located in the `./app` directory
-    # The `context` option specifies the build context, and the `dockerfile` option specifies the path to the Dockerfile
     build:
       context: ./app
       dockerfile: Dockerfile
-
-    # Restart the container automatically if it exits
-    # The `always` policy will always restart the container, regardless of the exit code
     restart: always
-
-    # Map port 5000 inside the container to port 5000 on the host machine
-    # This allows you to access the container's web server from your local machine
     ports:
-      - 5000:5000
-
-    # Specify that this service depends on the `database` service
-    # Docker Compose will ensure that the `database` service is started first
+      - "5000:5000"
     depends_on:
       - database
+    environment:
+      - DATABASE_URL=postgres://username:password@database:5432/dbname
 
-  # The `database` service
   database:
-    # Use the latest official PostgreSQL image
-    # The `image` option specifies the name and tag of the image to use
     image: postgres:latest
-
-    # Load environment variables from the `postgres.env` file
-    # The `env_file` option specifies the path to the file containing the environment variables
     env_file:
       - postgres.env
-
-    # Map port 5432 inside the container to port 5432 on the host machine
-    # This allows you to access the PostgreSQL server from your local machine
     ports:
-      - 543
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
