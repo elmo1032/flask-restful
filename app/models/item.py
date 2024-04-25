@@ -13,7 +13,11 @@ class ItemModel(db.Model):
 
     # Defining the columns of the table
     id = db.Column(db.Integer, primary_key=True)  # Primary key column for the items table
+                                                 # This column will automatically
+                                                 # increment and is unique for each row
     name = db.Column(db.String(80))  # Column to store the name of the item
+                                     # This column can store up to 80 characters
+                                     # of text
     price = db.Column(db.Float(precision=2))  # Column to store the price of the item
-
-
+                                              # This column will store floating point
+                                              # numbers with a precision of 2 decimal places
