@@ -32,7 +32,7 @@ class StoreModel(db.Model): # Define a new class StoreModel that inherits from d
         """
         return {
             'name': self.name,
-            'items': [item.json() for item in self.items.all()]
+            'items': [item.json() for item in self.items.all()] # Convert each item to a JSON-serializable dictionary
         }
 
     @classmethod # Decorate the method as a class method
