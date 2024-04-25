@@ -19,13 +19,15 @@ def create_logger() -> logging.Logger:
         logging.Logger: A logger instance with the given log level.
     """
     # Create a logger instance
+    # The logger instance is used to log messages throughout the application
     logger = logging.getLogger()
 
     # Remove the default handler of the logger
+    # This is done to prevent duplicate log messages from being displayed
     logger.handlers.clear()
 
     # Set the log level based on the 'LOGLEVEL' environment variable
-    # If the 'LOGLEVEL' variable is not set, the default log level is 'WARNING'
+    # If the 'LOGLEVEL' variable is not set, the default level is 'WARNING'
     log_level = logging.WARNING
     if "LOGLEVEL" in os.environ:
         log_level_str = os.environ["LOGLEVEL"].upper()
@@ -60,4 +62,5 @@ def create_logger() -> logging.Logger:
     logger.setLevel(log_level)
 
     # Return the logger instance
+    # The logger instance can be used to log messages throughout the application
     return logger
