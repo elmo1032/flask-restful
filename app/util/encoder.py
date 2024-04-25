@@ -4,7 +4,7 @@
 
 import json
 
-from sqlalchemy.ext.declarative import DeclarativeMeta
+from sqlalchemy.ext.declarative import DeclarativeMeta  # import DeclarativeMeta from sqlalchemy.ext.declarative
 
 class AlchemyEncoder(json.JSONEncoder):
     """
@@ -13,7 +13,6 @@ class AlchemyEncoder(json.JSONEncoder):
     This class extends the json.JSONEncoder class to handle SQLAlchemy
     declarative base classes, which are not json-encodable by default.
     """
-
     def default(self, obj):
         """
         The default method is overridden to handle SQLAlchemy objects.
