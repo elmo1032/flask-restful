@@ -1,32 +1,30 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# standard python imports
+# Import necessary Python standard library modules
 import contextlib
 
-# Add any necessary imports here
+# Add any necessary import statements here
+# For example, if you need to import a third-party library, you can do so here
 
 # Define any necessary functions or classes here
-
-# Connect to the database using a context manager to automatically close the connection
+# For example, if you have a function that connects to a database, you can define it here
 @contextlib.contextmanager
 def connect_db():
-    """Connects to the database and returns a connection object. Automatically closes the connection when the block is exited."""
-    connection = db.connect()
+    """Connects to the database using a context manager to automatically close the connection.
+
+    This decorator allows the connection to be used as a context manager, which automatically closes the connection when the block is exited.
+
+    Yields:
+        connection (sqlite3.Connection): A connection object representing the database connection.
+
+    Raises:
+        sqlite3.Error: If there is an error connecting to the database.
+
+    """
+    connection = db.connect()  # Connect to the database
     try:
-        yield connection
+        yield connection  # Yield the connection object to the user
     finally:
-        connection.close()
+        connection.close()  # Close the connection when the block is exited
 
-
-# Example usage
-if __name__ == "__main__":
-    # Connect to the database using the context manager
-    with connect_db() as conn:
-        # Perform database operations here
-        pass
-
-    # Alternatively, you can still connect to the database manually and close the connection manually
-    # conn = connect_db()
-    # Perform database operations here
-    # close_db(conn)
